@@ -19,14 +19,18 @@ class Tweeter:
         api = self.tweepy.API(auth)
         api.update_with_media(latest, status=status)
 
+    def get_last_line(self, log_file):
+        lines = log_file.readlines()
+        return lines[len(lines)-1]
+
     def build(self):
         ## Set the latest image filename, grab the last line from the data log.
         latest = self.config["working_directory"] + 'latest_ts.jpg'
 
+        l = None
         fn = self.config["working_directory"] + 'sensors.log'
-        with open(fn) as f:
-            for l in f.readlines():
-                pass
+        with open(fn) as log_file:
+            l = self.get_last_line(log_file)
 
         ## Format the sensor values nicely for tweeting, run the tweet_pic function.
         sensor_vals = l.rstrip().split('\t')
