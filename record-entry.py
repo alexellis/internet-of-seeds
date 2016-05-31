@@ -7,7 +7,7 @@ from PIL import Image, ImageFont, ImageDraw
 import flotilla
 import config as cfg
 
-config = config.config
+config = cfg.config
 
 ## Captures an image and copies to latest.jpg. Needs to be passed a datetime
 ## object for the timestamped filename, t.
