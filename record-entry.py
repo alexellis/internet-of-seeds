@@ -5,6 +5,9 @@ import picamera
 import PIL
 from PIL import Image, ImageFont, ImageDraw
 import flotilla
+import config as cfg
+
+config = config.config
 
 ## Captures an image and copies to latest.jpg. Needs to be passed a datetime
 ## object for the timestamped filename, t.
@@ -14,9 +17,9 @@ def capture_image(t):
   cam.resolution = (3280, 2464)
   cam.hflip = True
   cam.vflip = True
-  filename = '/home/pi/internet-of-seeds/image-' + t.strftime('%Y-%m-%d-%H-%M') + '.jpg'
+  filename = config["working_directory"] + 'image-' + t.strftime('%Y-%m-%d-%H-%M') + '.jpg'
   cam.capture(filename, quality=100)
-  shutil.copy2(filename, '/home/pi/internet-of-seeds/latest.jpg')
+  shutil.copy2(filename, config["working_directory"] + 'latest.jpg')
   return filename
 
 ## Converts the dictionary of sensor values to a nicely formatted string.
@@ -29,15 +32,15 @@ def sensor_vals_as_string(sensor_vals):
 def timestamp_image(t, sensor_vals):
   ts_read = t.strftime('%H:%M, %a. %d %b %Y')
   sensor_str = sensor_vals_as_string(sensor_vals)
-  img = Image.open('/home/pi/internet-of-seeds/latest.jpg')
+  img = Image.open(config["working_directory"] + 'latest.jpg')
   # wm = Image.open('/home/pi/watermark.png')
   img = img.resize((1438, 1080))
   # img.paste(wm, (0, 996), wm)
   draw = ImageDraw.Draw(img)
-  font = ImageFont.truetype('/home/pi/roboto/Roboto-Regular.ttf', 36)
+  font = ImageFont.truetype(config["working_directory"] + '/roboto/Roboto-Regular.ttf', 36)
   draw.text((10, 10), ts_read, (255, 255, 255), font=font)
   draw.text((10, 46), sensor_str, (255, 255, 255), font=font)
-  filename = '/home/pi/internet-of-seeds/latest_ts.jpg'
+  filename = config["working_directory"] + 'latest_ts.jpg'
   img.save(filename)
   return filename
 
@@ -64,7 +67,7 @@ def read_sensors():
 
 ## Writes the sensor values to a tab-separated text file.
 def log_values(t, sensor_vals):
-  filename = '/home/pi/internet-of-seeds/internet-of-seeds.log'
+  filename = config["working_directory"] + 'sensors.log'
   ts = t.strftime('%Y-%m-%d-%H-%M')
   sensor_str = '%s\t%.2f\t%.2f\t%i\t%i\t%i\t%i\n' % (ts, sensor_vals['temperature'], sensor_vals['pressure'], sensor_vals['light'], sensor_vals['colour'][0], sensor_vals['colour'][1], sensor_vals['colour'][2])
   if not os.path.isfile(filename):
