@@ -5,3 +5,5 @@ class PiCamera:
         self.vflip = False
     def capture(self, filename, quality):
         print("Capturing " + filename)
+        with open(filename, 'wb') as f2:
+            f2.write("True")

@@ -1,5 +1,4 @@
 class Tweeter:
-    ## test
     def __init__(self, config, tweepy):
         self.tweepy = tweepy
         self.config = config
@@ -25,7 +24,7 @@ class Tweeter:
 
     def build(self):
         ## Set the latest image filename, grab the last line from the data log.
-        latest = self.config["working_directory"] + 'latest_ts.jpg'
+        latest = self.config["working_directory"] + 'latest.jpg'
 
         l = None
         fn = self.config["working_directory"] + 'sensors.log'
@@ -36,7 +35,6 @@ class Tweeter:
         sensor_vals = l.rstrip().split('\t')
         valid = False
         status = None
-        latest = None
 
         if(len(sensor_vals) == 7):
             status = '%s: Temp: %s C, Press: %s hPa, Light: %s lux, RGB: %s,%s,%s.' % tuple(sensor_vals)
