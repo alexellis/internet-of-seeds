@@ -13,7 +13,7 @@ class Watermark:
 
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype(self.config["working_directory"] + '/roboto/Roboto-Regular.ttf', 36)
-        draw.text((10, 10), values, (255, 255, 255), font=font)
+        draw.text((10, 10), values, (0, 0, 0), font=font)
         print("Writing image back to: " + filename)
         img.save(filename)
 

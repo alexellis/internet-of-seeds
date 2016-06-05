@@ -15,8 +15,11 @@ class Camera:
 
     def capture(self):
        cam = self.picamera.PiCamera()
+       cam.exposure_mode = "auto"
+       cam.meter_mode = "matrix"
        cam.start_preview()
-
+       time.sleep(1)
+       
        cam.resolution = (2048, 1536)
        cam.hflip = True
        cam.vflip = True

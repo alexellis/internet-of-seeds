@@ -1,3 +1,5 @@
+import time
+
 class Tweeter:
     def __init__(self, config, tweepy):
         self.tweepy = tweepy
@@ -39,4 +41,6 @@ class Tweeter:
         if(len(sensor_vals) == 7):
             status = '%s: Temp: %s C, Press: %s hPa, Light: %s lux, RGB: %s,%s,%s.' % tuple(sensor_vals)
             valid = True
+
+        status = time.strftime(time.ctime())
         return {"status": status, "latest": latest, "valid": valid}

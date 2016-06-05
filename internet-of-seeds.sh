@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo python /home/pi/internet-of-seeds/record-entry.py
+cd /home/alex/internet-of-seeds/
+sudo python /home/alex/internet-of-seeds/capture.py
 

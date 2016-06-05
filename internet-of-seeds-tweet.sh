@@ -1,2 +1,3 @@
 #!/bin/bash
-sudo python /home/pi/internet-of-seeds/send-tweet.py
+cd /home/alex/internet-of-seeds/
+sudo python /home/alex/internet-of-seeds/send-tweet.py
